@@ -1,0 +1,39 @@
+{
+  "name": "todo-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix --ignore-path .gitignore --cache",
+    "lint:css": "stylelint './src/**/*.{ts,tsx}' --max-warnings 0 --fix --ignore-path .gitignore --cache",
+    "prettify": "prettier --write --ignore-path .gitignore .",
+    "beautify": "npm-run-all --parallel lint lint:css --sequential prettify",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.11"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "npm-run-all": "^4.1.5",
+    "postcss-styled-syntax": "^0.6.4",
+    "prettier": "3.3.1",
+    "stylelint": "^16.6.1",
+    "stylelint-config-standard": "^36.0.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  }
+}
