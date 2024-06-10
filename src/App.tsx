@@ -124,7 +124,11 @@ function App() {
   function handleNewTodoCreation(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key !== "Enter") return;
 
-    setTodos([{ value: newTodo.trim(), completed: false }, ...todos]);
+    const todoToSave = newTodo.trim();
+
+    if (!todoToSave) return;
+
+    setTodos([{ value: todoToSave, completed: false }, ...todos]);
   }
 
   function handleTodoStatusChange(todo: string) {
