@@ -129,6 +129,7 @@ function App() {
     if (!todoToSave) return;
 
     setTodos([{ value: todoToSave, completed: false }, ...todos]);
+    setNewTodo("");
   }
 
   function handleTodoStatusChange(todo: string) {
