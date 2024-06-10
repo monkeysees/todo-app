@@ -116,10 +116,22 @@ function App() {
   const [todos, setTodos] = useState<{ value: string; completed: boolean }[]>([
     { value: "Go shopping", completed: false },
   ]);
-  const [newTodo, setNewTodo] = useState<string>("");
+  const [newTodo, setNewTodo] = useState("");
+  const [statusToShow, setStatusToShow] = useState<
+    "all" | "active" | "completed"
+  >("all");
 
-  // const activeTodos = todos.filter((t) => !t.completed);
-  // const completedTodos = todos.filter((t) => t.completed);
+  const activeTodos =
+    statusToShow === "all" || statusToShow === "active"
+      ? todos.filter((t) => !t.completed)
+      : [];
+
+  const completedTodos =
+    statusToShow === "all" || statusToShow === "completed"
+      ? todos.filter((t) => t.completed)
+      : [];
+
+  const todosToShow = activeTodos.concat(completedTodos);
 
   function handleNewTodoCreation(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key !== "Enter") return;
@@ -155,7 +167,7 @@ function App() {
         aria-placeholder="Сходить в магазин"
       />
       <TodoItemsList>
-        {todos.map((t) => (
+        {todosToShow.map((t) => (
           <div key={t.value}>
             <TodoItem $completed={t.completed}>
               <Checkbox
@@ -171,6 +183,27 @@ function App() {
           </div>
         ))}
       </TodoItemsList>
+      <button
+        onClick={() => {
+          setStatusToShow("all");
+        }}
+      >
+        All
+      </button>
+      <button
+        onClick={() => {
+          setStatusToShow("active");
+        }}
+      >
+        Active
+      </button>
+      <button
+        onClick={() => {
+          setStatusToShow("completed");
+        }}
+      >
+        Completed
+      </button>
     </AppWrapper>
   );
 }
