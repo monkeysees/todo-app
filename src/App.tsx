@@ -150,6 +150,10 @@ function App() {
     );
   }
 
+  function clearCompletedTodos() {
+    setTodos(todos.filter((t) => !t.completed));
+  }
+
   return (
     <AppWrapper>
       <AppTitle>ToDos</AppTitle>
@@ -207,6 +211,13 @@ function App() {
         }}
       >
         Completed
+      </button>
+      <button
+        onClick={() => {
+          clearCompletedTodos();
+        }}
+      >
+        Clear completed
       </button>
     </AppWrapper>
   );
