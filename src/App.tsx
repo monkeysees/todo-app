@@ -121,10 +121,8 @@ function App() {
     "all" | "active" | "completed"
   >("all");
 
-  const activeTodos =
-    statusToShow === "all" || statusToShow === "active"
-      ? todos.filter((t) => !t.completed)
-      : [];
+  // We need to calculate it always because it is used for statistics
+  const activeTodos = todos.filter((t) => !t.completed);
 
   const completedTodos =
     statusToShow === "all" || statusToShow === "completed"
@@ -183,6 +181,12 @@ function App() {
           </div>
         ))}
       </TodoItemsList>
+      <span>
+        {activeTodos.length === 1 // for `0` it should also be "items"
+          ? "1 item"
+          : `${activeTodos.length.toString()} items`}{" "}
+        left
+      </span>
       <button
         onClick={() => {
           setStatusToShow("all");
