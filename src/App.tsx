@@ -220,9 +220,9 @@ function App() {
           setNewTodo(e.target.value);
         }}
         onKeyDown={handleNewTodoCreation}
-        placeholder="Что делать?"
-        aria-label="Новая задача"
-        aria-placeholder="Сходить в магазин"
+        placeholder="What needs to be done?"
+        aria-label="New todo"
+        aria-placeholder="Go shopping"
       />
       <TodoItemsList>
         {todosToShow.map((t) => (
