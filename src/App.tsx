@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const AppWrapper = styled.div`
+const AppWrapper = styled.main`
   display: grid;
   place-items: start center;
   padding-top: 3.2rem;
@@ -14,13 +14,13 @@ const AppTitle = styled.h1`
 `;
 
 const Input = styled.input`
-  width: 36rem;
+  width: 48rem;
   height: 4.8rem;
   font-size: 2rem;
   font-family: inherit;
   padding: 0 4.8rem;
   background-color: #fff;
-  border: 0.1rem solid #eee;
+  border: 1px solid #e0e0e0;
   box-shadow: inset 0 -0.4rem 0.8rem -0.5rem rgb(0 0 0 / 10%);
   line-height: 1;
   transition: 180ms border ease-in-out;
@@ -30,8 +30,8 @@ const Input = styled.input`
     font-style: italic;
   }
 
-  &:focus {
-    border-color: #bdbdbd;
+  &:focus-visible {
+    border-color: #9e9e9e;
 
     /* Windows High Contrast Mode */
     outline: 3px solid transparent;
@@ -40,7 +40,7 @@ const Input = styled.input`
 
 const TodoItemsList = styled.ul`
   list-style: none;
-  width: 36rem;
+  width: 48rem;
   padding: 0;
   margin: 0;
 `;
@@ -53,7 +53,7 @@ const TodoItem = styled.li<{ $completed?: boolean }>`
   align-items: center;
   font-size: 2rem;
   background-color: #fff;
-  border: 0.1rem solid #eee;
+  border: 1px solid #e0e0e0;
   border-top: none;
   color: ${(props) => (props.$completed ? "#BDBDBD" : "inherited")};
   text-decoration: ${(props) => (props.$completed ? "line-through" : "none")};
@@ -72,7 +72,7 @@ const Checkbox = styled.input`
   color: currentcolor;
   width: 2.4rem;
   height: 2.4rem;
-  border: 0.1rem solid #e0e0e0;
+  border: 1px solid #e0e0e0;
   border-radius: 50%;
   transform: translateY(-0.075em);
   display: grid;
@@ -102,14 +102,67 @@ const Checkbox = styled.input`
     background-color: CanvasText;
   }
 
-  &:focus {
+  &:focus-visible {
     outline: 1px solid #e0e0e0;
     outline-offset: 2px;
   }
 
-  &:checked:focus {
+  &:checked:focus-visible {
     outline-color: #4caf50;
   }
+`;
+
+const MenuBar = styled.div`
+  background-color: #f5f5f5;
+  width: 48rem;
+  height: 4.8rem;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 1.2rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: #757575;
+`;
+
+const TextButton = styled.button`
+  max-width: max-content;
+  display: grid;
+  place-content: center;
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.2rem;
+  outline: none;
+  color: inherit;
+  font-size: inherit;
+  transition: 150ms opacity ease-in-out;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 1px solid #bdbdbd;
+    outline-offset: 2px;
+  }
+`;
+
+const FilterButton = styled(TextButton)<{ $enabled?: boolean }>`
+  border: ${(props) => (props.$enabled ? "1px solid #FFCDD2" : "none")};
+`;
+
+const FilterButtons = styled.div`
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  column-gap: 0.8rem;
+`;
+
+const CompleteTodosButtonWrapper = styled.div`
+  justify-self: end;
 `;
 
 function App() {
@@ -129,7 +182,10 @@ function App() {
       ? todos.filter((t) => t.completed)
       : [];
 
-  const todosToShow = activeTodos.concat(completedTodos);
+  const todosToShow =
+    statusToShow === "completed"
+      ? completedTodos
+      : activeTodos.concat(completedTodos);
 
   function handleNewTodoCreation(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key !== "Enter") return;
@@ -185,40 +241,49 @@ function App() {
           </div>
         ))}
       </TodoItemsList>
-      <span>
-        {activeTodos.length === 1 // for `0` it should also be "items"
-          ? "1 item"
-          : `${activeTodos.length.toString()} items`}{" "}
-        left
-      </span>
-      <button
-        onClick={() => {
-          setStatusToShow("all");
-        }}
-      >
-        All
-      </button>
-      <button
-        onClick={() => {
-          setStatusToShow("active");
-        }}
-      >
-        Active
-      </button>
-      <button
-        onClick={() => {
-          setStatusToShow("completed");
-        }}
-      >
-        Completed
-      </button>
-      <button
-        onClick={() => {
-          clearCompletedTodos();
-        }}
-      >
-        Clear completed
-      </button>
+      <MenuBar>
+        <span>
+          {activeTodos.length === 1 // for `0` it should also be "items"
+            ? "1 item"
+            : `${activeTodos.length.toString()} items`}{" "}
+          left
+        </span>
+        <FilterButtons>
+          <FilterButton
+            $enabled={statusToShow === "all"}
+            onClick={() => {
+              setStatusToShow("all");
+            }}
+          >
+            All
+          </FilterButton>
+          <FilterButton
+            $enabled={statusToShow === "active"}
+            onClick={() => {
+              setStatusToShow("active");
+            }}
+          >
+            Active
+          </FilterButton>
+          <FilterButton
+            $enabled={statusToShow === "completed"}
+            onClick={() => {
+              setStatusToShow("completed");
+            }}
+          >
+            Completed
+          </FilterButton>
+        </FilterButtons>
+        <CompleteTodosButtonWrapper>
+          <TextButton
+            onClick={() => {
+              clearCompletedTodos();
+            }}
+          >
+            Clear completed
+          </TextButton>
+        </CompleteTodosButtonWrapper>
+      </MenuBar>
     </AppWrapper>
   );
 }
