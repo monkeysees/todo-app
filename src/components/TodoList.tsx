@@ -33,22 +33,22 @@ export default function TodoList({
   statusFilter: StatusFilter;
   width: string;
 }) {
+  // Styling a list with list-style: none; in CSS removes the list semantics.
+  // Hence, list roles are added manually.
   return (
-    <TodoItemsList $width={width}>
+    <TodoItemsList $width={width} role="list">
       {todos.map((t) => (
-        <div key={t.value}>
-          <TodoItem $completed={t.isCompleted}>
-            <Checkbox
-              type="checkbox"
-              checked={t.isCompleted}
-              onChange={() => {
-                statusChangeHandler(t.value);
-              }}
-              aria-label="Завершить задачу"
-            />
-            <span>{t.value}</span>
-          </TodoItem>
-        </div>
+        <TodoItem $completed={t.isCompleted} role="listitem" key={t.value}>
+          <Checkbox
+            type="checkbox"
+            checked={t.isCompleted}
+            onChange={() => {
+              statusChangeHandler(t.value);
+            }}
+            aria-label="Завершить задачу"
+          />
+          <span>{t.value}</span>
+        </TodoItem>
       ))}
     </TodoItemsList>
   );

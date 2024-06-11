@@ -20,9 +20,7 @@ const AppTitle = styled.h1`
 const width = "48rem";
 
 export default function App() {
-  const [todos, setTodos] = useState<Todo[]>([
-    { value: "Go shopping", isCompleted: false },
-  ]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
 

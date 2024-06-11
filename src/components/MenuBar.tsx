@@ -53,9 +53,10 @@ export default function MenuBar({
           : `${activeTodos.length.toString()} items`}{" "}
         left
       </span>
-      <FilterButtons>
+      <FilterButtons aria-label="Determine what todos to show">
         <FilterButton
           $enabled={statusFilter === "all"}
+          aria-current={statusFilter === "all"}
           onClick={() => {
             newStatusFilterHandler("all");
           }}
@@ -64,6 +65,7 @@ export default function MenuBar({
         </FilterButton>
         <FilterButton
           $enabled={statusFilter === "active"}
+          aria-current={statusFilter === "active"}
           onClick={() => {
             newStatusFilterHandler("active");
           }}
@@ -72,6 +74,7 @@ export default function MenuBar({
         </FilterButton>
         <FilterButton
           $enabled={statusFilter === "completed"}
+          aria-current={statusFilter === "completed"}
           onClick={() => {
             newStatusFilterHandler("completed");
           }}
