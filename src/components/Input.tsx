@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export default styled.input<{ $width: string }>`
-  width: ${(props) => props.$width};
+export default styled.input`
+  width: var(--app-width);
   height: 4.8rem;
   font-size: 2rem;
   font-family: inherit;

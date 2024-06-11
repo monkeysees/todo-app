@@ -12,12 +12,10 @@ const AppWrapper = styled.main`
 `;
 
 const AppTitle = styled.h1`
-  font-size: 3.2em;
+  font-size: 4.8rem;
   line-height: 1;
   margin: 0 0 1.6rem;
 `;
-
-const width = "48rem";
 
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -64,7 +62,6 @@ export default function App() {
     <AppWrapper>
       <AppTitle>ToDos</AppTitle>
       <Input
-        $width={width}
         type="text"
         value={newTodo}
         onChange={(e) => {
@@ -79,10 +76,8 @@ export default function App() {
         todos={todosToShow}
         statusChangeHandler={handleTodoStatusChange}
         statusFilter={statusFilter}
-        width={width}
       />
       <MenuBar
-        width={width}
         activeTodos={activeTodos}
         statusFilter={statusFilter}
         newStatusFilterHandler={setStatusFilter}

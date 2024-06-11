@@ -2,8 +2,8 @@ import styled from "styled-components";
 import TextButton from "./TextButton";
 import Todo, { StatusFilter } from "../models/Todo";
 
-const MenuBarWrapper = styled.div<{ $width: string }>`
-  width: ${(props) => props.$width};
+const MenuBarWrapper = styled.div`
+  width: var(--app-width);
   height: 4.8rem;
   background-color: #f5f5f5;
   color: #757575;
@@ -33,20 +33,18 @@ const CompleteTodosButtonWrapper = styled.div`
 `;
 
 export default function MenuBar({
-  width,
   activeTodos,
   statusFilter,
   newStatusFilterHandler,
   completedTodosHandler,
 }: {
-  width: string;
   activeTodos: Todo[];
   statusFilter: StatusFilter;
   newStatusFilterHandler: (s: StatusFilter) => void;
   completedTodosHandler: () => void;
 }) {
   return (
-    <MenuBarWrapper $width={width}>
+    <MenuBarWrapper>
       <span>
         {activeTodos.length === 1 // for `0` it should also be "items"
           ? "1 item"

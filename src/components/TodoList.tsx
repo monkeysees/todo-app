@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Todo, { StatusFilter } from "../models/Todo";
 import Checkbox from "./Checkbox";
 
-const TodoItemsList = styled.ul<{ $width: string }>`
+const TodoItemsList = styled.ul`
   list-style: none;
-  width: ${(props) => props.$width};
+  width: var(--app-width);
   padding: 0;
   margin: 0;
 `;
@@ -26,17 +26,15 @@ const TodoItem = styled.li<{ $completed?: boolean }>`
 export default function TodoList({
   todos,
   statusChangeHandler,
-  width,
 }: {
   todos: Todo[];
   statusChangeHandler: (todo: string) => void;
   statusFilter: StatusFilter;
-  width: string;
 }) {
   // Styling a list with list-style: none; in CSS removes the list semantics.
   // Hence, list roles are added manually.
   return (
-    <TodoItemsList $width={width} role="list">
+    <TodoItemsList role="list">
       {todos.map((t) => (
         <TodoItem $completed={t.isCompleted} role="listitem" key={t.value}>
           <Checkbox
